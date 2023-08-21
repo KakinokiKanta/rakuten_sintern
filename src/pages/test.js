@@ -13,7 +13,7 @@ const Test = () => {
         router.push("/point");
     }
   }
-    return <A onClick={() => linkTest()}>aaa</A>
+    return <A onClick={() => linkTest()}>abc</A>
 }
 
 export default Test
