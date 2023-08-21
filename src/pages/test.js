@@ -10,7 +10,7 @@ const Test = () => {
 
     const linkTest = () => {
     if (router.isReady) {
-        router.push("/");
+        router.push("/point");
     }
   }
     return <A onClick={() => linkTest()}>aaa</A>
