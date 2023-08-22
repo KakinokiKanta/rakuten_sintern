@@ -1,19 +1,19 @@
-import { useRouter } from "next/router"
-import { styled } from "styled-components"
+import { useRouter } from "next/router";
+import { styled } from "styled-components";
 
 const A = styled.button`
-    background-color: blue;
-`
+  background-color: blue;
+`;
 
 const Test = () => {
-    const router = useRouter()
+  const router = useRouter();
 
-    const linkTest = () => {
+  const linkTest = () => {
     if (router.isReady) {
-        router.push("/point");
+      router.push("/point");
     }
-  }
-    return <A onClick={() => linkTest()}>aaa</A>
-}
+  };
+  return <A onClick={() => linkTest()}>aaa</A>;
+};
 
-export default Test
+export default Test;
