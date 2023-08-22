@@ -6,7 +6,7 @@ export default function Home() {
 
     const linkTest = () => {
     if (router.isReady) {
-        router.push("/test");
+        router.push("/character");
     }
   }
   return (
