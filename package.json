@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:proxy": "next dev -p 3001 & local-ssl-proxy --key localhost-key.pem --cert localhost.pem --source 3000 --target 3001",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -14,10 +15,11 @@
     "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-zxing": "^2.0.0",
+    "react-zxing": "^1.1.1",
     "styled-components": "^6.0.7"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^2.1.4"
+    "babel-plugin-styled-components": "^2.1.4",
+    "local-ssl-proxy": "^2.0.5"
   }
 }
