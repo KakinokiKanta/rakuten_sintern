@@ -9,6 +9,12 @@ const Text = styled.p`
   text-align: center;
 `
 
+const Div = styled.div`
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+`
+
 const Qr = () => {
   // 読み込んだ QR コードのテキスト情報を格納
   const [result, setResult] = useState('')
@@ -20,12 +26,11 @@ const Qr = () => {
   };
 
   return (
-    <div>
+    <Div>
       <Header title="QRコードスキャン" onExit={handleExit} />
       <QrReader setResult={setResult} onRequestClose={() => null} />
-      <p>a{result}</p>
       <Text>QRコードをスキャンして<br/>ポイントゲット</Text>
-    </div>
+    </Div>
   )
 }
 
