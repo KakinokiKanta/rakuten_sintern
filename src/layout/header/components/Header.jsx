@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
 
@@ -23,7 +24,7 @@ const SidebarMenu = styled.div`
   position: fixed;
   left: 0;
   width: 250px;
-  margin-top: 60px;
+  margin-top: 0;
   transform: translateX(${props => (props.$isOpen ? "0" : "-250px")});
   transition: transform 250ms ease-in-out;
   background: #bf0000;
@@ -40,7 +41,7 @@ const SidebarMenuInner = styled.ul`
     font-weight: bold;
     padding: 20px;
     cursor: pointer;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.379);
     span {
       display: block;
       font-size: 14px;
@@ -94,6 +95,12 @@ const Spinner = styled.div`
 export default function Header({ title, onExit }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const router = useRouter()
+
+  const link = (url) => {
+    router.push(url);
+  }
+
   return (
     <>
       <StyledHeader>
@@ -107,10 +114,10 @@ export default function Header({ title, onExit }) {
       </StyledHeader>
       <SidebarMenu $isOpen={isOpen}>
         <SidebarMenuInner>
-          <li onClick={() => window.location.href = '/'}><p>ホーム</p></li>
-          <li onClick={() => window.location.href = '/qr'}><p>QRコードスキャン</p></li>
-          <li onClick={() => window.location.href = '/pointChange'}><p>ポイント交換</p></li>
-          <li onClick={() => window.location.href = '/character'}><p>マイキャラ育成</p></li>
+          <li onClick={() => link('/')}><p>ホーム</p></li>
+          <li onClick={() => link('/qr')}><p>QRコードスキャン</p></li>
+          <li onClick={() => link('/pointChange')}><p>ポイント交換</p></li>
+          <li onClick={() => link('/character')}><p>マイキャラ育成</p></li>
         </SidebarMenuInner>
       </SidebarMenu>
     </>
