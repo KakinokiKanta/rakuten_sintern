@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useAtomValue } from 'jotai'
-import { countAtom } from '../atoms.js'
+import { pointAtom } from '../features/common/atom'
 
 const Container = styled.div`
   display: flex;
@@ -53,10 +53,7 @@ const Button = styled.div`
 `;
 
 export default function Home() {
-  const [a, setA] = useAtom(pointAtom)
-  setA((n) => n + 1)
   const point = useAtomValue(pointAtom)
-  const setV = useSetAtom(pointAtom)
   // const point = 100;
 
   return (
@@ -67,9 +64,9 @@ export default function Home() {
       </Point>
       <ButtonGrid>
         <Button onClick={() => window.location.href = '/qr'}>QRコード<br/>スキャン</Button>
-        <Button onClick={() => window.location.href = '/qr'}>Page 2</Button>
-        <Button onClick={() => window.location.href = '/qr'}>Page 3</Button>
-        <Button onClick={() => window.location.href = '/qr'}>Page 4</Button>
+        <Button onClick={() => window.location.href = '/pointChange'}>ポイント交換</Button>
+        <Button onClick={() => window.location.href = '/character'}>マイキャラ育成</Button>
+        <Button >未実装</Button>
       </ButtonGrid>
     </Container>
   );
