@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { Progress, Space } from 'antd';
-import { useRouter } from "next/router"
-import { styled } from "styled-components"
-import Header from '@/layout/header/components/Header'
+import { useRouter } from "next/router";
+import { styled } from "styled-components";
+import Header from '@/layout/header/components/Header';
 import useGetWindowSize from './GetWindowSize';
+import { useAtom } from 'jotai';
+import { pointAtom } from '../../features/common/atom';
+
 
 // ボタンのスタイル1
 const Button1 = styled.div`
@@ -57,7 +60,9 @@ const CharacterGrowing = () => {
     const router = useRouter() // 使用するルータ
     const [percent, setPercent] = useState(0); // プログレスバーの進捗変数
     const {height, width} = useGetWindowSize(); // 画面のサイズ
-    //const [point, setPoint] =
+    const [points, setPoints] = useAtom(pointAtom);
+    const use_point = 10;
+    var plus_growth = 1; // 1プッシュで成長するパーセント
 
     // 戻るボタンを押した時に前画面に戻る関数
     const handleExit = () => {
@@ -67,7 +72,14 @@ const CharacterGrowing = () => {
     // プログレスバーを増加させる関数
     const increase = () => {
       setPercent((prevPercent) => {
-        var newPercent = prevPercent + 10;
+
+        if (points >= use_point){
+          setPoints(prevPoints => prevPoints - use_point);
+        }else{
+          plus_growth = 0;
+        }
+
+        var newPercent = prevPercent + plus_growth;
         if (newPercent > 100) newPercent = 100;
 
         // 100%以上になったときの処理
@@ -93,7 +105,7 @@ const CharacterGrowing = () => {
     return (
         <>
             <Header title="マイキャラ育成" onExit={handleExit} />
-            {/* <h> {percent}</h> */}
+            <p> {points} </p>
             <div style={{ background: "white", position: "relative", left:"15px", top:"10px", width: width-50, height: 50}}>
               <p> 成長度 </p>
               <Progress id="progress" percent={percent} status="active" strokeColor={{ from: '#108ee9', to: '#87d068' }} />
