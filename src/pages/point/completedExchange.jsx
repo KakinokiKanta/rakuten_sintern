@@ -9,15 +9,23 @@ const A = styled.button`
   padding: 5pt;
 `;
 
-const Food = styled.p`
-  position: relative;
-  color: black;
-  font-size: 16px;
-  bottom: 0;
-  left: 0;
+const ItemImg = styled.div`
+  background-color: #8d8b8b;
 `;
 
-const RestaurantInfo = styled.p`
+const ExchangeItem = styled.p`
+  position: absolute;
+  color: white;
+  background-color: #8d8b8b;
+  font-weight: bold;
+  font-size: 18px;
+  top: 420px;
+  left: 0;
+  margin: 0;
+  padding: 5px 10px;
+`;
+
+const Description = styled.p`
   font-size: 16px;
   text-align: center;
 `;
@@ -44,7 +52,7 @@ const CompletedExchange = () => {
   return (
     <div>
       <Header title="ポイント交換完了" onExit={handleExit} />
-      <div style={{ position: "relative", width: "100%", height: "400px" }}>
+      <ItemImg style={{ position: "relative", width: "100%", height: "400px" }}>
         <Image
           src="/foodSample.jpg"
           alt="食品画像"
@@ -52,10 +60,10 @@ const CompletedExchange = () => {
           style={{ objectFit: "contain" }}
           priority
         />
-      </div>
-      <Food>料理名</Food>
-      <RestaurantInfo>店舗情報</RestaurantInfo>
-      <RestaurantInfo>ポイント残高:100pt</RestaurantInfo>
+      </ItemImg>
+      <ExchangeItem>ポイント交換品に対する説明(料理名など)</ExchangeItem>
+      <Description>店舗か企業ポイントの情報</Description>
+      <Description>ポイント残高:100pt</Description>
       <A onClick={() => linkExchange()}>ポイント交換に戻る</A>
     </div>
   );
