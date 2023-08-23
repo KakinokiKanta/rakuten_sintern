@@ -14,7 +14,7 @@ const QrReader = ({ setResult, onRequestClose }) => {
   const router = useRouter();
 
   const handleExit = () => {
-    router.push('/');
+    router.push(`/get_point?data=${10}}`);
   };
 
   const { ref } = useZxing({
