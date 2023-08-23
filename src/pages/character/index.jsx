@@ -3,7 +3,7 @@ import { Progress, Space } from 'antd';
 import { useRouter } from "next/router"
 import { styled } from "styled-components"
 import Header from '@/layout/header/components/Header'
-import { getWindowSize } from "./GetWindowSize";
+import useGetWindowSize from './GetWindowSize';
 
 // ボタンのスタイル1
 const Button1 = styled.div`
@@ -56,7 +56,7 @@ const Button2 = styled.div`
 const CharacterGrowing = () => {
     const router = useRouter() // 使用するルータ
     const [percent, setPercent] = useState(0); // プログレスバーの進捗変数
-    const {height, width} = getWindowSize(); // 画面のサイズ
+    const {height, width} = useGetWindowSize(); // 画面のサイズ
     //const [point, setPoint] =
 
     // 戻るボタンを押した時に前画面に戻る関数
@@ -93,7 +93,7 @@ const CharacterGrowing = () => {
     return (
         <>
             <Header title="マイキャラ育成" onExit={handleExit} />
-            <h> {percent}</h>
+            {/* <h> {percent}</h> */}
             <div style={{ background: "white", position: "relative", left:"15px", top:"10px", width: width-50, height: 50}}>
               <p> 成長度 </p>
               <Progress id="progress" percent={percent} status="active" strokeColor={{ from: '#108ee9', to: '#87d068' }} />
