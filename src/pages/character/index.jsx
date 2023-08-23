@@ -55,7 +55,6 @@ const Button2 = styled.div`
 `;
 
 
-
 // キャラ育成画面を表示するプログラム
 const CharacterGrowing = () => {
     const router = useRouter() // 使用するルータ
