@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useAtomValue } from 'jotai'
+import { countAtom } from '../atoms.js'
 
 const Container = styled.div`
   display: flex;
@@ -51,10 +53,13 @@ const Button = styled.div`
 `;
 
 export default function Home() {
-  const point = 100;
+  const [a, setA] = useAtom(pointAtom)
+  setA((n) => n + 1)
+  const point = useAtomValue(pointAtom)
+  const setV = useSetAtom(pointAtom)
+  // const point = 100;
 
   return (
-    <>
     <Container>
       <AppName>アプリネーム</AppName>
       <Point>
@@ -67,6 +72,5 @@ export default function Home() {
         <Button onClick={() => window.location.href = '/qr'}>Page 4</Button>
       </ButtonGrid>
     </Container>
-    </>
   );
 }
