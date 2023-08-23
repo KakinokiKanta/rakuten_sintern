@@ -64,9 +64,9 @@ export default function Home() {
       </Point>
       <ButtonGrid>
         <Button onClick={() => window.location.href = '/qr'}>QRコード<br/>スキャン</Button>
-        <Button onClick={() => window.location.href = '/qr'}>Page 2</Button>
-        <Button onClick={() => window.location.href = '/qr'}>Page 3</Button>
-        <Button onClick={() => window.location.href = '/qr'}>Page 4</Button>
+        <Button onClick={() => window.location.href = '/pointChange'}>ポイント交換</Button>
+        <Button onClick={() => window.location.href = '/character'}>マイキャラ育成</Button>
+        <Button >未実装</Button>
       </ButtonGrid>
     </Container>
   );
