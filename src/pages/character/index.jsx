@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Progress, Space } from 'antd';
 import { useRouter } from "next/router";
 import { styled } from "styled-components";
@@ -16,10 +15,10 @@ const Button1 = styled.div`
   display: flex;
   text-align: center;
   font-size: 1.2rem; // フォントサイズを調整
-  color: #bf0000; // 文字色を #bf0000 に変更
+  color: #bf0000; // 文字色
   align-items: center;
   justify-content: center;
-  background-color: #fff; // 背景色を白に変更
+  background-color: #ffe4e1; // 背景色を白に変更
   cursor: pointer;
   border-radius: 15px; // 角を丸くする
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); // 影を追加
@@ -39,10 +38,10 @@ const Button2 = styled.div`
   display: flex;
   text-align: center;
   font-size: 1.2rem; // フォントサイズを調整
-  color: #0068b7; // 文字色を #bf0000 に変更
+  color: #0068b7; // 文字色
   align-items: center;
   justify-content: center;
-  background-color: #fff; // 背景色を白に変更
+  background-color: #e0ffff; // 背景色を白に変更
   cursor: pointer;
   border-radius: 15px; // 角を丸くする
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); // 影を追加
@@ -62,7 +61,7 @@ const CharacterGrowing = () => {
     const {height, width} = useGetWindowSize(); // 画面のサイズ
     const [points, setPoints] = useAtom(pointAtom); // 所持ポイント
     const use_point = 10; // 1プッシュで消費するポイント
-    var plus_growth = 20; // 1プッシュで成長するパーセント
+    var plus_growth = 10; // 1プッシュで成長するパーセント
     const [growth, setGrowth] = useAtom(growthAtom ) // 成長度
 
     // 戻るボタンを押した時に前画面に戻る関数
@@ -103,22 +102,27 @@ const CharacterGrowing = () => {
       });
     };
 
+    // 戻り値
     return (
-        <>
-            <Header title="マイキャラ育成" onExit={handleExit} />
-            <p> {growth} </p>
-            <p> {points} </p>
-            <div style={{ background: "white", position: "relative", left:"15px", top:"10px", width: width-50, height: 50}}>
+      <>
+          <Header title="マイキャラ育成" onExit={handleExit}/>
+          <div style={{position: "relative", left:20, top:10, width: width-50, height: 50, z_index: 100}}>
               <p> 成長度 </p>
               <Progress id="progress" percent={growth} status="active" strokeColor={{ from: '#108ee9', to: '#87d068' }} />
-            </div>
-            <div id="Div_Grow" align="center" style={{ background: "silver", position: "absolute", left: 15, top: height-200, width: width-50, height: 50, visibility: "visible"}}>
-              <Button1 id="Btn_Grow" onClick={increase}>育てる（{use_point} ポイント⇒{plus_growth}%成長）</Button1>
-            </div>
-            <div id="Div_PoinGet" align="center" style={{ background: "silver", position: "absolute", left: 15, top: height-200, width: width-50, height: 50, visibility: "hidden"}} >
-              <Button2 onClick={change_point}>成長度100%でポイントゲット！</Button2>
-            </div>
-        </>
+          </div>
+
+          <div style={{position: "absolute", left: 25, bottom: 100, width: width-50}} >
+              <div align="left">
+                  <p> 所持ポイント：{points} </p>
+              </div>
+              <div id="Div_Grow" align="center" style={{position: "absolute", width: width-50, height: 50, visibility: "visible"}}>
+                  <Button1 id="Btn_Grow" onClick={increase}>育てる（{use_point} ポイント⇒{plus_growth}%成長）</Button1>
+              </div>
+              <div id="Div_PoinGet" align="center" style={{position: "absolute", width: width-50, height: 50, visibility: "hidden"}} >
+                  <Button2 onClick={change_point}>成長度100%でポイントゲット！</Button2>
+              </div>
+          </div>
+      </>
     );
 }
 
