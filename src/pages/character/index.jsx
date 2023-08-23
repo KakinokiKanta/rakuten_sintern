@@ -104,25 +104,32 @@ const CharacterGrowing = () => {
 
     // 戻り値
     return (
-      <>
-          <Header title="マイキャラ育成" onExit={handleExit}/>
-          <div style={{position: "relative", left:20, top:10, width: width-50, height: 50, z_index: 100}}>
-              <p> 成長度 </p>
-              <Progress id="progress" percent={growth} status="active" strokeColor={{ from: '#108ee9', to: '#87d068' }} />
-          </div>
+      <div>
+        <div align="center" style={{position: "absolute", left:0, top:0, width:width-10}}>
+          <img src="./img_bg.png" style={{width: width, height: height}}/>
+        </div>
 
-          <div style={{position: "absolute", left: 25, bottom: 100, width: width-50}} >
-              <div align="left">
-                  <p> 所持ポイント：{points} </p>
-              </div>
-              <div id="Div_Grow" align="center" style={{position: "absolute", width: width-50, height: 50, visibility: "visible"}}>
-                  <Button1 id="Btn_Grow" onClick={increase}>育てる（{use_point} ポイント⇒{plus_growth}%成長）</Button1>
-              </div>
-              <div id="Div_PoinGet" align="center" style={{position: "absolute", width: width-50, height: 50, visibility: "hidden"}} >
-                  <Button2 onClick={change_point}>成長度100%でポイントゲット！</Button2>
-              </div>
+        <div style={{background: "rgba(255,255,255,0.8)", position: "absolute", left:10, top:100, width: 300, height: 50}}>
+            <p> 成長度 </p>
+            <Progress id="progress" percent={growth} status="active" strokeColor={{ from: '#108ee9', to: '#87d068' }} />
+        </div>
+
+        <div style={{position: "absolute", left: 10, bottom: 50}} >
+          <div align="left" style={{background: "rgba(255,255,255,0.8)", width: 180}}>
+            <p> 所持ポイント：{points}</p>
           </div>
-      </>
+          <div id="Div_Grow" align="center" style={{position: "absolute", top: 25, width: 250, height: 50, visibility: "visible"}}>
+            <Button1 id="Btn_Grow" onClick={increase}>育てる</Button1>
+          </div>
+          <div id="Div_PoinGet" align="center" style={{position: "absolute", width: 250, height: 50, visibility: "hidden"}} >
+            <Button2 onClick={change_point}>ポイントゲット！</Button2>
+          </div>
+          <div align="center" style={{position: "relative", height: 50, top:55}}>
+            <p> 交換レート：{use_point} ポイント⇒{plus_growth}%成長</p>
+          </div>
+        </div>
+        <Header title="マイキャラ育成" onExit={handleExit}/>
+      </div>
     );
 }
 
