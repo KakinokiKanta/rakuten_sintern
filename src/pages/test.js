@@ -10,10 +10,18 @@ const Test = () => {
 
   const linkTest = () => {
     if (router.isReady) {
+<<<<<<< HEAD
       router.push("/point");
     }
   };
   return <A onClick={() => linkTest()}>aaa</A>;
 };
+=======
+        router.push("/pointChange");
+    }
+  }
+    return <A onClick={() => linkTest()}>Link to Point Change</A>
+}
+>>>>>>> 618715672fd0903f222f4e5c286499535b0e3787
 
 export default Test;
