@@ -24,7 +24,7 @@ const ExchangeItem = styled.p`
   background-color: gray;
   font-weight: bold;
   font-size: 16px;
-  top: 420px;
+  top: 390px;
   left: 0;
   margin: 0;
   padding: 2px 10px;
@@ -33,8 +33,8 @@ const ExchangeItem = styled.p`
 `;
 
 const Box = styled.div`
-  padding: 10px;
-  margin: 30px 40px;
+  padding: 5px 10px;
+  margin: 20px 40px;
   color: #474747;
   background: whitesmoke; /*背景色*/
   border-left: double 7px #ff5757; /*左線*/
@@ -75,7 +75,7 @@ const CompletedExchange = () => {
   return (
     <div>
       <Header title="ポイント交換完了" onExit={handleExit} />
-      <ItemImg style={{ position: "relative", width: "100%", height: "400px" }}>
+      <ItemImg style={{ position: "relative", width: "100%", height: "370px" }}>
         <Image
           src={pointItem.item_image}
           alt="ポイント交換品の画像"
