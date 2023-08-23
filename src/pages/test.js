@@ -24,4 +24,8 @@ const Test = () => {
 }
 >>>>>>> 618715672fd0903f222f4e5c286499535b0e3787
 
+<<<<<<< HEAD
 export default Test;
+=======
+export default Test
+>>>>>>> c65c4314824b418baaa761a7cccb9f045685b833
