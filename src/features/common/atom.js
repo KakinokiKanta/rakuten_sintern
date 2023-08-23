@@ -1,3 +1,3 @@
 import { atom } from 'jotai'
 
-export const pointAtom = atom(0)
+export const pointAtom = atom(100)
