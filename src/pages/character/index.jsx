@@ -1,4 +1,3 @@
-
 import { Progress, Space } from 'antd';
 import { useState, useEffect } from 'react';
 import { useRouter } from "next/router";
@@ -75,6 +74,7 @@ const CharacterGrowing = () => {
     const [points, setPoints] = useAtom(pointAtom); // 所持ポイント
     const use_point = 10; // 1プッシュで消費するポイント
     var plus_growth = 10; // 1プッシュで成長するパーセント
+    const bonus_point = 100; // 成長度100%でもらえるポイント
     const [growth, setGrowth] = useAtom(growthAtom); // 成長度
     const x1 = 0; // キャラの移動域のx座標（左上）
     const y1 = 300; // キャラの移動域のy座標（左上）
@@ -92,8 +92,9 @@ const CharacterGrowing = () => {
                     './character/img_child_1.png',
                     './character/img_child_2.png',
                     './character/img_adult_1.png',
-                    './character/img_adult_2.png'];
-
+                    './character/img_adult_2.png']; // アニメーション画像
+    const [messageVisible, setMessageVisible] = useState(false); // 進化メッセージ
+    const evolution_growth = [40, 80]; // 進化する成長度のタイミング
 
     // 戻るボタンを押した時に前画面に戻る関数
     const handleExit = () => {
@@ -115,7 +116,9 @@ const CharacterGrowing = () => {
         if (newGrowth > 100) newGrowth = 100;
 
         // 成長度が100%以上になったときの処理
-        if (newGrowth == 100){
+        if (newGrowth == evolution_growth[0] || newGrowth == evolution_growth[1]){
+          showMessage()
+        }else if(newGrowth == 100){
           Div_PoinGet.style.visibility = "visible";
           Div_Grow.style.visibility = "hidden";
         }
@@ -129,6 +132,7 @@ const CharacterGrowing = () => {
         var newGrowth = 0;
         Div_PoinGet.style.visibility = "hidden";
         Div_Grow.style.visibility = "visible";
+        setPoints(prevPoints => prevPoints + bonus_point);
         return newGrowth;
       });
     };
@@ -169,10 +173,19 @@ const CharacterGrowing = () => {
     useEffect(() => {
       const interval = setInterval(() => {
         setCurrentImageIndex((prevIndex) => (prevIndex + 1) % 2);
-      }, 1000); // Change the interval duration (in milliseconds) as needed
+      }, 1000);
 
       return () => clearInterval(interval);
     }, []);
+
+    // 進化メッセージの処理をする関数
+    const showMessage = () => {
+      setMessageVisible(true);
+      setTimeout(() => {
+        setMessageVisible(false);
+      }, 1000);
+    };
+
 
     // 戻り値
     return (
@@ -180,7 +193,7 @@ const CharacterGrowing = () => {
         <div align="center" style={{position: "absolute", left:0, top:0, width:width-10}}>
           <img src="./character/img_bg.png" style={{width: width, height: height}}/>
         </div>
-        <img src={growth <= 40 ? images[currentImageIndex]: growth <= 80 ? images[currentImageIndex + 2]: images[currentImageIndex + 4]} style={{position: 'absolute', top: position.y, left: position.x, width: 300, height: 300}}/>
+        <img src={growth < 40 ? images[currentImageIndex]: growth < 80 ? images[currentImageIndex + 2]: images[currentImageIndex + 4]} style={{position: 'absolute', top: position.y, left: position.x, width: 300, height: 300}}/>
         <div style={{background: "rgba(255,255,255,0.8)", position: "absolute", left:10, top:100, width: 300, height: 50}}>
             <p> 成長度 </p>
             <Progress id="progress" percent={growth} status="active" strokeColor={{ from: '#108ee9', to: '#87d068' }} />
@@ -198,9 +211,28 @@ const CharacterGrowing = () => {
           </div>
           <div align="center" style={{position: "relative", height: 50, top:55}}>
             <p> 交換レート：{use_point} ポイント⇒{plus_growth}%成長</p>
-            <p> {growth} </p>
           </div>
         </div>
+
+        {messageVisible && (
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100vw',
+              height: '100vh',
+              backgroundColor: 'white',
+              opacity: 0.9,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '2rem',
+            }}
+          >
+            進化！
+          </div>
+        )}
 
         <Header title="マイキャラ育成" onExit={handleExit}/>
       </div>
