@@ -10,10 +10,10 @@ const Test = () => {
 
     const linkTest = () => {
     if (router.isReady) {
-        router.push("/point");
+        router.push("/pointChange");
     }
   }
-    return <A onClick={() => linkTest()}>abc</A>
+    return <A onClick={() => linkTest()}>Link to Point Change</A>
 }
 
 export default Test
