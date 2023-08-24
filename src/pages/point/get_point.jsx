@@ -1,6 +1,10 @@
 import Header from 'src/layout/header/components/Header';
 import { useRouter } from "next/router";
-import { styled } from "styled-components";
+import styled from "styled-components";
+import { useAtom } from 'jotai';
+import { pointAtom } from 'src/features/common/atom';
+import { useEffect } from 'react';
+import { flagAtom } from '@/features/qr/atom';
 
 const Container = styled.div`
   display: flex;
@@ -40,30 +44,42 @@ const ExitButton = styled.button`
 `;
 
 const Point = () => {
-  const router = useRouter();
+    const router = useRouter();
+    const { data } = router.query;
+    const [points, setPoints] = useAtom(pointAtom);
+    const [flag, setFlag] = useAtom(flagAtom)
+    useEffect(() => {
+        if (data && flag) {
+            const additionalPoints = parseInt(data, 10);
 
-  const handleExit = () => {
-    if (router.isReady) {
-      router.push("/");
-    }
-    console.log("Exit button clicked!");
-  };
 
-  return (
-    <>
-      <Header title="ポイントページ" onExit={handleExit} />
-      <Container>
-        <Logo src="https://d1.awsstatic.com/asset-repository/products/amazon-rds/1024px-MySQL.ff87215b43fd7292af172e2a5d9b844217262571.png" alt="Logo" />
-        <PointsText>30ポイント獲得!</PointsText>
-        <PointsList>
-          <PointItem>保有ポイント</PointItem>
-          <PointItem>家ポイント:3000</PointItem>
-          <PointItem>外ポイント:2000</PointItem>
-        </PointsList>
-      </Container>
-      <ExitButton onClick={handleExit}>aaa</ExitButton>
-    </>
-  );
+            setPoints(prevPoints => prevPoints + additionalPoints);
+            console.log(points)
+            setFlag(false)
+        }
+    }, []);
+
+    const handleExit = () => {
+      console.log("Exit button clicked!");
+      if (router.isReady) {
+        router.push("/");
+      }
+    };
+  
+    return (
+      <>
+        <Header title="ポイントページ" onExit={handleExit} />
+        <Container>
+          <Logo src="https://d1.awsstatic.com/asset-repository/products/amazon-rds/1024px-MySQL.ff87215b43fd7292af172e2a5d9b844217262571.png" alt="Logo" />
+          <PointsText>{data}ポイント獲得!</PointsText>
+          <PointsList>
+            <PointItem>保有ポイント</PointItem>
+            <PointItem>{points}ポイント:</PointItem>
+          </PointsList>
+        </Container>
+        <ExitButton onClick={handleExit}>Exit</ExitButton>
+      </>
+    );
 };
 
 export default Point;

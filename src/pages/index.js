@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useAtomValue } from 'jotai'
 import { pointAtom } from '../features/common/atom'
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
   display: flex;
@@ -56,6 +57,12 @@ export default function Home() {
   const point = useAtomValue(pointAtom)
   // const point = 100;
 
+  const router = useRouter()
+
+  const link = (url) => {
+    router.push(url);
+  }
+
   return (
     <Container>
       <AppName>アプリネーム</AppName>
@@ -63,10 +70,13 @@ export default function Home() {
         ポイント <br /> {point}
       </Point>
       <ButtonGrid>
-        <Button onClick={() => window.location.href = '/qr'}>QRコード<br/>スキャン</Button>
-        <Button onClick={() => window.location.href = '/qr'}>Page 2</Button>
-        <Button onClick={() => window.location.href = '/qr'}>Page 3</Button>
-        <Button onClick={() => window.location.href = '/qr'}>Page 4</Button>
+        {/* <Button onClick={() => window.location.href = '/qr'}>QRコード<br/>スキャン</Button>
+        <Button onClick={() => window.location.href = '/pointChange'}>ポイント交換</Button>
+        <Button onClick={() => window.location.href = '/character'}>マイキャラ育成</Button> */}
+        <Button onClick={() => link('/qr')}>QRコード<br/>スキャン</Button>
+        <Button onClick={() => link('/pointChange')}>ポイント交換</Button>
+        <Button onClick={() => link('/character')}>マイキャラ育成</Button>
+        <Button >未実装</Button>
       </ButtonGrid>
     </Container>
   );

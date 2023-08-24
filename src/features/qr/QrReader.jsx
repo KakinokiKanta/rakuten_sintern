@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router';
 import { useZxing } from 'react-zxing';
 import { styled } from 'styled-components';
+import { useSetAtom } from 'jotai';
+import { flagAtom } from './atom';
 
 const Video = styled.video`
   max-width: 100%;
@@ -12,13 +14,14 @@ const Video = styled.video`
 
 const QrReader = ({ setResult, onRequestClose }) => {
   const router = useRouter();
-
+  const setFlag = useSetAtom(flagAtom);
   const handleExit = () => {
-    router.push(`/get_point?data=${10}}`);
+    router.push(`/point/get_point?data=${30}`);
   };
 
   const { ref } = useZxing({
     onResult(result) {
+      setFlag(true)
       setResult(result.getText());
       onRequestClose();
       handleExit()
