@@ -1,17 +1,20 @@
 import { useRouter } from "next/router";
 import { styled } from "styled-components";
 import { useAtomValue } from "jotai";
+import { useEffect, useState } from "react";
 import { pointAtom } from "../../features/common/atom";
 import Header from "@/layout/header/components/Header";
 import Image from "next/image";
+import axios from "axios";
 
 // 交換品のダミーデータ
 const pointItem = {
-  company_id: 10,
-  item_id: 11,
-  item_name: "マルゲリータピザ",
-  item_text: "キノコやパプリカなど野菜たっぷりで栄養満点なマルゲリータ!!",
-  item_image: "/foodSample.jpg",
+  companyId: 10,
+  itemId: 11,
+  itemName: "マルゲリータピザ",
+  itemText: "キノコやパプリカなど野菜たっぷりで栄養満点なマルゲリータ!!",
+  itemImage: "/foodSample.jpg",
+  storage: 5,
 };
 
 const ItemImg = styled.div`
@@ -55,38 +58,46 @@ const Balance = styled.p`
 const CompletedExchange = () => {
   const point = useAtomValue(pointAtom);
   const router = useRouter();
+  // serverパス
+  const server =
+    "http://localhost:8080/companyproducts/id?companyId=2&itemId=2";
+  // "http://localhost:8080/companyproducts/id?companyId=" +
+  //   router.query.companyId +
+  //   "&itemId=" +
+  //   router.query.itemId;
 
   const handleExit = () => {
     router.push("/");
   };
 
-  const linkHome = () => {
-    if (router.isReady) {
-      router.push("/");
-    }
-  };
+  const [changedData, setChangedData] = useState(null);
 
-  const linkExchange = () => {
-    if (router.isReady) {
-      router.push("/");
-    }
-  };
+  useEffect(() => {
+    axios
+      .get(server)
+      .then((res) => {
+        setChangedData(res.data[0]);
+        // console.log(changedData);
+        // console.log(changedData.itemName);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <div>
       <Header title="ポイント交換完了" onExit={handleExit} />
       <ItemImg style={{ position: "relative", width: "100%", height: "370px" }}>
         <Image
-          src={pointItem.item_image}
+          src={pointItem.itemImage}
           alt="ポイント交換品の画像"
           fill
           style={{ objectFit: "contain" }}
           priority
         />
       </ItemImg>
-      <ExchangeItem>{pointItem.item_name}</ExchangeItem>
+      <ExchangeItem>{changedData.itemName}</ExchangeItem>
       <Box>
-        <Description>{pointItem.item_text}</Description>
+        <Description>{changedData.itemText}</Description>
       </Box>
       <Balance>ポイント残高:{point}pt</Balance>
     </div>
