@@ -14,12 +14,6 @@ const Container = styled.div`
   height: calc(100vh - 60px);
 `;
 
-const Logo = styled.img`
-  width: 100px;
-  height: 100px;
-  margin-bottom: 20px;
-`;
-
 const PointsText = styled.h1`
   font-size: 24px;
   margin-bottom: 20px;
@@ -65,12 +59,14 @@ const Point = () => {
         router.push("/");
       }
     };
-  
+
     return (
       <>
         <Header title="ポイントページ" onExit={handleExit} />
         <Container>
-          <Logo src="https://d1.awsstatic.com/asset-repository/products/amazon-rds/1024px-MySQL.ff87215b43fd7292af172e2a5d9b844217262571.png" alt="Logo" />
+          <div style={{ position: 'relative', width: '100vw', height: '35vh'}}>
+            <img src="../logo_red.png" alt="logo image"  style={{ position: 'absolute', top: '45%', left: '50%', transform: 'translate(-50%, -50%)' }}/>
+          </div>
           <PointsText>{answer === "correct" ? "正解": "不正解"} {point}ポイント獲得!</PointsText>
           <PointsList>
             <PointItem>保有ポイント</PointItem>

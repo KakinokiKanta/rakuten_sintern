@@ -65,7 +65,9 @@ export default function Home() {
 
   return (
     <Container>
-      <AppName>アプリネーム</AppName>
+      <div style={{ position: 'relative', width: '100vw', height: '35vh'}}>
+        <img src="./logo_white.png" alt="logo image"  style={{ position: 'absolute', top: '45%', left: '50%', transform: 'translate(-50%, -50%)' }}/>
+      </div>
       <Point>
         ポイント <br /> {point}
       </Point>
