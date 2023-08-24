@@ -4,21 +4,22 @@ import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
 import { pointAtom } from "../../features/common/atom";
 import Header from "@/layout/header/components/Header";
-import Image from "next/image";
 import axios from "axios";
 
-// 交換品のダミーデータ
-const pointItem = {
-  companyId: 10,
-  itemId: 11,
-  itemName: "マルゲリータピザ",
-  itemText: "キノコやパプリカなど野菜たっぷりで栄養満点なマルゲリータ!!",
-  itemImage: "/foodSample.jpg",
-  storage: 5,
-};
+// // 交換品のダミーデータ
+// const pointItem = {
+//   companyId: 10,
+//   itemId: 11,
+//   itemName: "マルゲリータピザ",
+//   itemText: "キノコやパプリカなど野菜たっぷりで栄養満点なマルゲリータ!!",
+//   itemImage: "/foodSample.jpg",
+//   storage: 5,
+// };
 
 const ItemImg = styled.div`
   background-color: gray;
+  display: flex;
+  align-items: center;
 `;
 
 const ExchangeItem = styled.p`
@@ -60,11 +61,10 @@ const CompletedExchange = () => {
   const router = useRouter();
   // serverパス
   const server =
-    "http://localhost:8080/companyproducts/id?companyId=2&itemId=2";
-  // "http://localhost:8080/companyproducts/id?companyId=" +
-  //   router.query.companyId +
-  //   "&itemId=" +
-  //   router.query.itemId;
+    "http://localhost:8080/companyproducts/id?companyId=" +
+    router.query.companyId +
+    "&itemId=" +
+    router.query.itemId;
 
   const handleExit = () => {
     router.push("/");
@@ -77,8 +77,6 @@ const CompletedExchange = () => {
       .get(server)
       .then((res) => {
         setChangedData(res.data[0]);
-        // console.log(changedData);
-        // console.log(changedData.itemName);
       })
       .catch(console.error);
   }, []);
@@ -86,19 +84,24 @@ const CompletedExchange = () => {
   return (
     <div>
       <Header title="ポイント交換完了" onExit={handleExit} />
-      <ItemImg style={{ position: "relative", width: "100%", height: "370px" }}>
-        <Image
-          src={pointItem.itemImage}
-          alt="ポイント交換品の画像"
-          fill
-          style={{ objectFit: "contain" }}
-          priority
-        />
-      </ItemImg>
-      <ExchangeItem>{changedData.itemName}</ExchangeItem>
-      <Box>
-        <Description>{changedData.itemText}</Description>
-      </Box>
+      {changedData && (
+        <div>
+          <ItemImg
+            style={{ position: "relative", width: "100%", height: "370px" }}
+          >
+            <img
+              src={changedData.itemImage}
+              alt="ポイント交換品の画像"
+              width="100%"
+              height="auto"
+            />
+          </ItemImg>
+          <ExchangeItem>{changedData.itemName}</ExchangeItem>
+          <Box>
+            <Description>{changedData.itemText}</Description>
+          </Box>
+        </div>
+      )}
       <Balance>ポイント残高:{point}pt</Balance>
     </div>
   );
