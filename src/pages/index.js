@@ -85,8 +85,8 @@ export default function Home() {
           スキャン
         </Button>
         <Button onClick={() => link("/pointChange")}>ポイント交換</Button>
-        <Button onClick={() => link("/character")}>マイキャラ育成</Button>
-        <Button>未実装</Button>
+        <Button onClick={() => link("/character")}>マイキャラ<br/>育成</Button>
+        <Button>交換履歴</Button>
       </ButtonGrid>
     </Container>
   );

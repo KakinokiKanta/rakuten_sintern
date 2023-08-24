@@ -33,9 +33,12 @@ const PointItem = styled.div`
   }
 `;
 
-const ExitButton = styled.button`
-  background-color: blue;
-`;
+const Img = styled.img`
+  position: relative;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`
 
 const Point = () => {
     const router = useRouter();
@@ -62,10 +65,10 @@ const Point = () => {
 
     return (
       <>
-        <Header title="ポイントページ" onExit={handleExit} />
+        <Header title="ポイント獲得" onExit={handleExit} />
         <Container>
           <div style={{ position: 'relative', width: '100vw', height: '35vh'}}>
-            <img src="../logo_red.png" alt="logo image"  style={{ position: 'absolute', top: '45%', left: '50%', transform: 'translate(-50%, -50%)' }}/>
+            <Img src="../logo_red.png" alt="logo image"/>
           </div>
           <PointsText>{answer === "correct" ? "正解": "不正解"} {point}ポイント獲得!</PointsText>
           <PointsList>
@@ -73,7 +76,6 @@ const Point = () => {
             <PointItem>{points}ポイント:</PointItem>
           </PointsList>
         </Container>
-        <ExitButton onClick={handleExit}>Exit</ExitButton>
       </>
     );
 };
