@@ -1,67 +1,23 @@
 import ItemList from "@/features/point/components/ItemList";
 import Header from "@/layout/header/components/Header";
 import { useRouter } from "next/router";
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 const App = () => {
-  const jsonData = [
-    {
-      "companyId": 1,
-      "itemId": 1,
-      "storage": 4,
-      "itemName": "ゴーゴーカレー監修 金沢カツカレー",
-      "itemText": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-      "itemImage": "foodSample.jpg"
-    },
-    {
-      "companyId": 1,
-      "itemId": 1,
-      "storage": 4,
-      "itemName": "aaa",
-      "itemText": "aaa",
-      "itemImage": "foodSample.jpg"
-    },
-    {
-      "companyId": 1,
-      "itemId": 1,
-      "storage": 4,
-      "itemName": "aaa",
-      "itemText": "aaa",
-      "itemImage": "foodSample.jpg"
-    },
-    {
-      "companyId": 1,
-      "itemId": 1,
-      "storage": 4,
-      "itemName": "aaa",
-      "itemText": "aaa",
-      "itemImage": "foodSample.jpg"
-    },
-    {
-      "companyId": 1,
-      "itemId": 1,
-      "storage": 4,
-      "itemName": "aaa",
-      "itemText": "aaa",
-      "itemImage": "foodSample.jpg"
-    },
-    {
-      "companyId": 1,
-      "itemId": 1,
-      "storage": 4,
-      "itemName": "aaa",
-      "itemText": "aaa",
-      "itemImage": "foodSample.jpg"
-    },
-    {
-      "companyId": 1,
-      "itemId": 1,
-      "storage": 4,
-      "itemName": "aaa",
-      "itemText": "aaa",
-      "itemImage": "foodSample.jpg"
-    },
-    // ... 他の商品データ
-  ];
+  const [jsonData, setJsonData] = useState([]); // 声明一个状态变量来存储 JSON 数据
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/companyproducts/all')
+      .then(response => {
+        setJsonData(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  
 
   const router = useRouter();
 
@@ -75,6 +31,8 @@ const App = () => {
       <ItemList data={jsonData} />;
     </>
   )
+
+
 };
 
 export default App;
