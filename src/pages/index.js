@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import { useAtomValue } from 'jotai'
-import { pointAtom } from '../features/common/atom'
-import { useRouter } from 'next/router';
+import styled from "styled-components";
+import { useAtomValue } from "jotai";
+import { pointAtom } from "../features/common/atom";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
   display: flex;
@@ -9,7 +9,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(135deg, #bf0000 0%, #ff5757 100%); // グラデーション追加
+  background: linear-gradient(
+    135deg,
+    #bf0000 0%,
+    #ff5757 100%
+  ); // グラデーション追加
 `;
 
 const AppName = styled.h1`
@@ -54,14 +58,14 @@ const Button = styled.div`
 `;
 
 export default function Home() {
-  const point = useAtomValue(pointAtom)
+  const point = useAtomValue(pointAtom);
   // const point = 100;
 
-  const router = useRouter()
+  const router = useRouter();
 
   const link = (url) => {
     router.push(url);
-  }
+  };
 
   return (
     <Container>
@@ -75,10 +79,14 @@ export default function Home() {
         {/* <Button onClick={() => window.location.href = '/qr'}>QRコード<br/>スキャン</Button>
         <Button onClick={() => window.location.href = '/pointChange'}>ポイント交換</Button>
         <Button onClick={() => window.location.href = '/character'}>マイキャラ育成</Button> */}
-        <Button onClick={() => link('/qr')}>QRコード<br/>スキャン</Button>
-        <Button onClick={() => link('/pointChange')}>ポイント交換</Button>
-        <Button onClick={() => link('/character')}>マイキャラ育成</Button>
-        <Button >未実装</Button>
+        <Button onClick={() => link("/qr")}>
+          QRコード
+          <br />
+          スキャン
+        </Button>
+        <Button onClick={() => link("/pointChange")}>ポイント交換</Button>
+        <Button onClick={() => link("/character")}>マイキャラ育成</Button>
+        <Button>未実装</Button>
       </ButtonGrid>
     </Container>
   );
