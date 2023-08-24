@@ -16,7 +16,7 @@ const QrReader = ({ setResult, onRequestClose }) => {
   const router = useRouter();
   const setFlag = useSetAtom(flagAtom);
   const handleExit = () => {
-    router.push(`/point/get_point?data=${30}`);
+    router.push("/point/quiz");
   };
 
   const { ref } = useZxing({
