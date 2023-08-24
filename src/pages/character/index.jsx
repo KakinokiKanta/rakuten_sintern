@@ -16,10 +16,10 @@ const Button1 = styled.div`
   display: flex;
   text-align: center;
   font-size: 1.2rem; // フォントサイズを調整
-  color: #bf0000; // 文字色
+  color: #fff; // 文字色
   align-items: center;
   justify-content: center;
-  background-color: #ffe4e1; // 背景色を白に変更
+  background-color: #bf0000; // 背景色を白に変更
   cursor: pointer;
   border-radius: 15px; // 角を丸くする
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); // 影を追加
@@ -27,7 +27,7 @@ const Button1 = styled.div`
 
   &:hover {
     transform: scale(1.00); // ホバー時の拡大
-    background-color: #ff5757; // ホバー時の背景色変更
+    background-color: #bf0000; // ホバー時の背景色変更
     color: #fff; // ホバー時の文字色変更
   }
 `;
@@ -77,9 +77,9 @@ const CharacterGrowing = () => {
     const bonus_point = 100; // 成長度100%でもらえるポイント
     const [growth, setGrowth] = useAtom(growthAtom); // 成長度
     const x1 = 0; // キャラの移動域のx座標（左上）
-    const y1 = 300; // キャラの移動域のy座標（左上）
+    const y1 = 200; // キャラの移動域のy座標（左上）
     const x2 = width-300; // キャラの移動域のx座標（右下）
-    const y2 = height-200; // キャラの移動域のy座標（右下）
+    const y2 = height-300; // キャラの移動域のy座標（右下）
     const minStopDuration = 1000; // キャラの最短静止時間 [msec]
     const maxStopDuration = 3000; // キャラの最長静止時間 [msec]
     const [position, setPosition] = useState({ x: 0, y: 300 });　// キャラの初期位置
@@ -193,24 +193,25 @@ const CharacterGrowing = () => {
         <div align="center" style={{position: "absolute", left:0, top:0, width:width-10}}>
           <img src="./character/img_bg.png" style={{width: width, height: height}}/>
         </div>
+
         <img src={growth < 40 ? images[currentImageIndex]: growth < 80 ? images[currentImageIndex + 2]: images[currentImageIndex + 4]} style={{position: 'absolute', top: position.y, left: position.x, width: 300, height: 300}}/>
-        <div style={{background: "rgba(255,255,255,0.8)", position: "absolute", left:10, top:100, width: 300, height: 50}}>
+        <div>
+          <div style={{ position: 'absolute', backgroundColor: "rgba(255,255,255,0.8)", width: '80vw', top:130, left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', padding: '5px'}}>
             <p> 成長度 </p>
             <Progress id="progress" percent={growth} status="active" strokeColor={{ from: '#108ee9', to: '#87d068' }} />
+          </div>
         </div>
 
-        <div style={{position: "absolute", left: 10, bottom: 50}} >
-          <div align="left" style={{background: "rgba(255,255,255,0.8)", width: 180}}>
+        <div>
+          <div style={{ backgroundColor: "rgba(255,255,255,0.8)", position: 'absolute', bottom: 70, transform: 'translateY(-50%)', marginLeft: '20px', padding: '10px'}}>
             <p> 所持ポイント：{points}</p>
+            <p> 交換レート：{use_point} ポイント⇒{plus_growth}%成長</p>
           </div>
-          <div id="Div_Grow" align="center" style={{position: "absolute", top: 25, width: 250, height: 50, visibility: "visible"}}>
+          <div id="Div_Grow" style={{ position: 'absolute', width: '90vw', bottom:10, left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', visibility: "visible"}}>
             <Button1 id="Btn_Grow" onClick={increase}>育てる</Button1>
           </div>
-          <div id="Div_PoinGet" align="center" style={{position: "absolute", width: 250, height: 50, visibility: "hidden"}} >
+          <div id="Div_PoinGet" style={{ position: 'absolute', width: '90vw', bottom:10, left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', visibility: "hidden"}}>
             <Button2 onClick={change_point}>ポイントゲット！</Button2>
-          </div>
-          <div align="center" style={{position: "relative", height: 50, top:55}}>
-            <p> 交換レート：{use_point} ポイント⇒{plus_growth}%成長</p>
           </div>
         </div>
 
