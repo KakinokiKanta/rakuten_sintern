@@ -45,12 +45,12 @@ const ExitButton = styled.button`
 
 const Point = () => {
     const router = useRouter();
-    const { data } = router.query;
+    const { answer, point } = router.query;
     const [points, setPoints] = useAtom(pointAtom);
     const [flag, setFlag] = useAtom(flagAtom)
     useEffect(() => {
-        if (data && flag) {
-            const additionalPoints = parseInt(data, 10);
+        if (point && flag) {
+            const additionalPoints = parseInt(point, 10);
 
 
             setPoints(prevPoints => prevPoints + additionalPoints);
@@ -71,7 +71,7 @@ const Point = () => {
         <Header title="ポイントページ" onExit={handleExit} />
         <Container>
           <Logo src="https://d1.awsstatic.com/asset-repository/products/amazon-rds/1024px-MySQL.ff87215b43fd7292af172e2a5d9b844217262571.png" alt="Logo" />
-          <PointsText>{data}ポイント獲得!</PointsText>
+          <PointsText>{answer === "correct" ? "正解": "不正解"} {point}ポイント獲得!</PointsText>
           <PointsList>
             <PointItem>保有ポイント</PointItem>
             <PointItem>{points}ポイント:</PointItem>
