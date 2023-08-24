@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
 import { pointAtom } from '@/features/common/atom';
-
+import axios from 'axios';
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -128,6 +128,15 @@ const ItemList = ({ data }) => {
                 <ItemText>{selectedItem.itemText}</ItemText>
                 <Button onClick={() => {
                     setMyPoint((p) => p - 50);
+                    const consumeURL = 'http://localhost:8080/companyproducts/consume?itemId='+selectedItem.itemId+'&'+'companyId='+selectedItem.companyId;
+                    console.log(consumeURL);
+                    axios.get(consumeURL)
+                    .then(response => {
+                    })
+                    .catch(error => {
+                      console.error('Error fetching data:', error);
+                    });
+                    
                     router.push({
                     pathname: '/point/completedExchange',
                     query: { itemId: selectedItem.itemId, companyId: selectedItem.companyId, point: 50},
