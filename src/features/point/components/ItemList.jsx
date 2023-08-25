@@ -82,6 +82,16 @@ const Button = styled.button`
   }
 `;
 
+const ButtonCencel = styled.button`
+  margin: 7px;
+  padding: 8px 16px;
+  background-color: #ccc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+`
+
 const PointsDisplay = styled.div`
   background-color: #bf0000;
   color: white;
@@ -126,6 +136,7 @@ const ItemList = ({ data }) => {
                 <Storage>残りの個数: {selectedItem.storage}</Storage>
                 <ExchangePoints>必要ポイント: 50pts</ExchangePoints>
                 <ItemText>{selectedItem.itemText}</ItemText>
+                <ButtonCencel onClick={() => setSelectedItem(null)}>キャンセル</ButtonCencel>
                 <Button onClick={() => {
                     setMyPoint((p) => p - 50);
                     const consumeURL = 'http://localhost:8080/companyproducts/consume?itemId='+selectedItem.itemId+'&'+'companyId='+selectedItem.companyId;
@@ -143,7 +154,6 @@ const ItemList = ({ data }) => {
                     },'/point/completedExchange')}}>
                         交換する
                 </Button>
-                <Button onClick={() => setSelectedItem(null)}>キャンセル</Button>
             </DetailContainer>
             </DetailOverlay>
         )}

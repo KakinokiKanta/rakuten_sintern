@@ -28,6 +28,7 @@ const SidebarMenu = styled.div`
   transform: translateX(${props => (props.$isOpen ? "0" : "-250px")});
   transition: transform 250ms ease-in-out;
   background: #bf0000;
+  z-index: 10000;
 `;
 
 const SidebarMenuInner = styled.ul`
